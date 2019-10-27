@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import Checkerboard from '../components/checkerboard';
-import Button from '../components/button';
+import Modal from '../components/modal';
 import { PlayEnums } from '../enums';
-import '@babel/polyfill';
 import './style.scss';
 
 const {
@@ -18,10 +16,8 @@ const propTypes = {};
 function Layout() {
 	const [checkerboard, setCheckerboard] = useState(initCheckerboard);
 	const [play, setPlay] = useState(PLAY_1);
-
-	function resetCheckerboard() {
-		setCheckerboard(initCheckerboard);
-	}
+	const [message, setMessage] = useState('');
+	const [isVisible, setVisible] = useState(false);
 
 	function _handelClick(rowIndex, columnIndex) {
 		if (checkerboard[rowIndex][columnIndex]) return;
@@ -67,9 +63,25 @@ function Layout() {
 		return isWin;
 	}
 
+	function isFlat() {
+		return checkerboard.every(row => (
+			row.every(column => column)
+		));
+	}
+
 	useEffect(() => {
-		console.log(PLAY_1, _handleJudgeVictory(PLAY_1));
-		console.log(PLAY_2, _handleJudgeVictory(PLAY_2));
+		if (_handleJudgeVictory(PLAY_1)) {
+			setVisible(true);
+			setMessage('o 獲勝');
+		}
+		if (_handleJudgeVictory(PLAY_2)) {
+			setVisible(true);
+			setMessage('x 獲勝');
+		}
+		if (isFlat()) {
+			setVisible(true);
+			setMessage('平手');
+		}
 	});
 
 	return (
@@ -81,10 +93,12 @@ function Layout() {
 				checkerboard={checkerboard}
 				onClick={_handelClick}
 			/>
-			<Button 
-				className="reset-button"
-				onClick={resetCheckerboard}
-			> Reset </Button>
+			<Modal 
+				onReset={() => {setCheckerboard(initCheckerboard);}}
+				onVisible={() => {setVisible(false); setPlay(PLAY_1);}}
+				isVisible={isVisible}
+				message={message}
+			></Modal>
 		</div>
 	);
 }
