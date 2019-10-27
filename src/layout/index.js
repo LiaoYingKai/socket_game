@@ -70,6 +70,10 @@ function Layout() {
 	}
 
 	useEffect(() => {
+		if (isFlat()) {
+			setVisible(true);
+			setMessage('平手');
+		}
 		if (_handleJudgeVictory(PLAY_1)) {
 			setVisible(true);
 			setMessage('o 獲勝');
@@ -77,10 +81,6 @@ function Layout() {
 		if (_handleJudgeVictory(PLAY_2)) {
 			setVisible(true);
 			setMessage('x 獲勝');
-		}
-		if (isFlat()) {
-			setVisible(true);
-			setMessage('平手');
 		}
 	});
 
