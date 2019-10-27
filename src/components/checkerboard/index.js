@@ -1,7 +1,14 @@
 import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 import Lattice from '../lattice';
+import { PlayEnums } from '../../enums';
 import './style.scss';
+
+const {
+	PLAY_1,
+	PLAY_2,
+} = PlayEnums;
+
 const {
 	LatticeStatusEnums,
 } = Lattice;
@@ -10,7 +17,6 @@ const {
 	CIRCLE,
 	FORK,
 } = LatticeStatusEnums;
-
 
 const propTypes = {
 	checkerboard: PropTypes.array,
@@ -25,10 +31,10 @@ function checkerboard({ checkerboard, onClick }) {
 					row.map((item, columnIndex) => {
 						let status;
 
-						if (item === 'o') {
+						if (item === PLAY_1) {
 							status = CIRCLE;
 						}
-						if (item === 'x') {
+						if (item === PLAY_2) {
 							status = FORK;
 						}
 						return (
