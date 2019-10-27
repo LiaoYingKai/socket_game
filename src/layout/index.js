@@ -74,6 +74,9 @@ function Layout() {
 
 	return (
 		<div className="layout">
+			<div className="title">
+				換 <span className={`title--${play}`}>{play}</span> 下
+			</div>
 			<Checkerboard
 				checkerboard={checkerboard}
 				onClick={_handelClick}

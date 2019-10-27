@@ -9,7 +9,16 @@ body, html {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-
+	.title {
+		margin-bottom: 20px;
+		font-size: 36px;
+		&--o {
+			color: blue;
+		}
+		&--x {
+			color: red;
+		}
+	}
 	.reset-button {
 		margin-top: 20px;
 	}
