@@ -1,6 +1,7 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Checkerboard from '../components/checkerboard';
+import Button from '../components/button';
 import { PlayEnums } from '../enums';
 import '@babel/polyfill';
 import './style.scss';
@@ -18,13 +19,16 @@ function Layout() {
 	const [checkerboard, setCheckerboard] = useState(initCheckerboard);
 	const [play, setPlay] = useState(PLAY_1);
 
-	async function _handelClick(rowIndex, columnIndex) {
-		if (checkerboard[rowIndex][columnIndex]) return;
-		checkerboard[rowIndex][columnIndex] = play;
-		await setCheckerboard(Array.from(checkerboard));
-		console.log(PLAY_1, _handleJudgeVictory(PLAY_1));
-		console.log(PLAY_2, _handleJudgeVictory(PLAY_2));
+	function resetCheckerboard() {
+		setCheckerboard(initCheckerboard);
+	}
 
+	function _handelClick(rowIndex, columnIndex) {
+		if (checkerboard[rowIndex][columnIndex]) return;
+		const newCheckerboard = checkerboard.map(row => row.map(item => item));
+
+		newCheckerboard[rowIndex][columnIndex] = play;
+		setCheckerboard(newCheckerboard);
 		_handleChangePlay();
 	}
 
@@ -39,6 +43,7 @@ function Layout() {
 	function _handleJudgeVictory(play) {
 		let isWin = false;
 
+		// console.table(checkerboard)
 		checkerboard.forEach((row , index) => {
 			// row win
 			if (row.every(item => item === play)) {
@@ -62,12 +67,21 @@ function Layout() {
 		return isWin;
 	}
 
+	useEffect(() => {
+		console.log(PLAY_1, _handleJudgeVictory(PLAY_1));
+		console.log(PLAY_2, _handleJudgeVictory(PLAY_2));
+	});
+
 	return (
 		<div className="layout">
 			<Checkerboard
 				checkerboard={checkerboard}
 				onClick={_handelClick}
 			/>
+			<Button 
+				className="reset-button"
+				onClick={resetCheckerboard}
+			> Reset </Button>
 		</div>
 	);
 }

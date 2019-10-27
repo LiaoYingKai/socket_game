@@ -8,4 +8,9 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+
+	.reset-button {
+		margin-top: 20px;
+	}
 }
