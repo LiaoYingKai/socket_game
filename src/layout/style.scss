@@ -12,6 +12,10 @@ body, html {
 	.title {
 		margin-bottom: 20px;
 		font-size: 36px;
+		&--loading {
+			display: flex;
+			align-items: center;
+		}
 		&--o {
 			color: blue;
 		}
@@ -19,7 +23,7 @@ body, html {
 			color: red;
 		}
 	}
-	.reset-button {
+	.start-game-button {
 		margin-top: 20px;
 	}
 }

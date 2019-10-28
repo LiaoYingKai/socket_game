@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Checkerboard from '../components/checkerboard';
 import Modal from '../components/modal';
-import { PlayEnums } from '../enums';
+import { PlayEnums, PlayStatus } from '../enums';
+import webSocket from 'socket.io-client';
+import Button from '../components/button';
+import Loading from '../components/loading';
 import './style.scss';
 
 const {
 	PLAY_1,
 	PLAY_2,
 } = PlayEnums;
+
+const {
+	NONE,
+	LOADING,
+	PLAYING,
+} = PlayStatus;
 
 const initCheckerboard = [['','',''],['','',''],['','',''],];
 
@@ -18,6 +27,14 @@ function Layout() {
 	const [play, setPlay] = useState(PLAY_1);
 	const [message, setMessage] = useState('');
 	const [isVisible, setVisible] = useState(false);
+	const [playStatus, setPlayStatus] = useState(NONE);
+	const [ws,setWs] = useState(null);
+
+	function _handleConnectWebSocket() {
+		//開啟
+		setWs(webSocket('http://localhost:8888'));
+		setPlayStatus(LOADING);
+	}
 
 	function _handelClick(rowIndex, columnIndex) {
 		if (checkerboard[rowIndex][columnIndex]) return;
@@ -84,15 +101,47 @@ function Layout() {
 		}
 	});
 
+	function _renderTitle() {
+		switch (playStatus) {
+			case NONE: {
+				return <div className="title"> 請按開始遊戲 </div>;
+			}
+			case LOADING: {
+				return <div className="title title--loading"> 等待另一位玩家 <Loading/> </div>;
+			}
+			case PLAYING: {
+				return (
+					<div className="title">
+						換 <span className={`title--${play}`}>{play}</span> 下
+					</div>
+				);
+			}
+			default: {
+				return null;
+			}
+		}
+	}
+
+	function _renderButton() {
+		if (playStatus === NONE) {
+			return <Button 
+				className="start-game-button"
+				onClick={_handleConnectWebSocket}
+			> 開始遊戲 </Button>;
+		} else {
+			return null;
+		}
+
+	}
+
 	return (
 		<div className="layout">
-			<div className="title">
-				換 <span className={`title--${play}`}>{play}</span> 下
-			</div>
+			{_renderTitle()}
 			<Checkerboard
 				checkerboard={checkerboard}
 				onClick={_handelClick}
 			/>
+			{_renderButton()}
 			<Modal 
 				onReset={() => {setCheckerboard(initCheckerboard);}}
 				onVisible={() => {setVisible(false); setPlay(PLAY_1);}}
