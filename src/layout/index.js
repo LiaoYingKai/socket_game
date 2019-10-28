@@ -31,9 +31,15 @@ function Layout() {
 	const [ws,setWs] = useState(null);
 
 	function _handleConnectWebSocket() {
-		//開啟
+		//等待連線
 		setWs(webSocket('http://localhost:8888'));
 		setPlayStatus(LOADING);
+	}
+
+	function _handleDisconnectWebSocket() {
+		//取消等待
+		ws.close();
+		setPlayStatus(NONE);
 	}
 
 	function _handelClick(rowIndex, columnIndex) {
@@ -128,8 +134,12 @@ function Layout() {
 				className="start-game-button"
 				onClick={_handleConnectWebSocket}
 			> 開始遊戲 </Button>;
-		} else {
-			return null;
+		} 
+		if (playStatus === LOADING) {
+			return <Button 
+				className="start-game-button"
+				onClick={_handleDisconnectWebSocket}
+			> 取消遊戲 </Button>;
 		}
 
 	}
