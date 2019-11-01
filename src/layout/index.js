@@ -5,6 +5,7 @@ import { PlayEnums, PlayStatus } from '../enums';
 import webSocket from 'socket.io-client';
 import Button from '../components/button';
 import Loading from '../components/loading';
+import Message from '../components/message';
 import './style.scss';
 
 const {
@@ -26,8 +27,11 @@ function Layout() {
 	const [checkerboard, setCheckerboard] = useState(initCheckerboard);
 	const [play, setPlay] = useState('');
 	const [nowPlay, setNowPlay] = useState('');
+	const [modalMessage, setModalMessage] = useState('');
+	const [isModalVisible, setModalVisible] = useState(false);
 	const [message, setMessage] = useState('');
-	const [isVisible, setVisible] = useState(false);
+	const [isMessageVisible, setMessageVisible] = useState(false);
+	
 	const [playStatus, setPlayStatus] = useState(NONE);
 	const [ws,setWs] = useState(null);
 
@@ -58,16 +62,16 @@ function Layout() {
 				setNowPlay(nowPlay);
 			});
 			ws.on('notNowPlay', (message) => {
-				console.log(message);
+				_handleShowMessage(message);
 			});
 			ws.on('multipleAdd', (message) => {
-				console.log(message);
+				_handleShowMessage(message);
 			});
 			ws.on('updateChess',(checkerboard) => {
 				setCheckerboard(checkerboard);
 			});
 			ws.on('gameResult', (result) => {
-				_handleShowMessage(result);
+				_handleShowModal(result);
 			});
 			ws.on('leaveGame', () => {
 				setPlayStatus(NONE);
@@ -81,14 +85,21 @@ function Layout() {
 		ws.emit('addChess', { play, rowIndex, columnIndex, });
 	}
 
-	function _handleShowMessage(result) {
+	function _handleShowModal(result) {
 		if (result === 'flat') {
-			setVisible(true);
+			setModalMessage(true);
 			setMessage('平手');
 		} else {
-			setVisible(true);
+			setModalMessage(true);
 			setMessage(`${result} 獲勝`);
 		}
+	}
+	function _handleShowMessage(message) {
+		setMessageVisible(true);
+		setMessage(message);
+		setTimeout(() => {
+			setMessageVisible(false);
+		}, 1000);
 	}
 
 	function _renderTitle() {
@@ -139,10 +150,14 @@ function Layout() {
 			{_renderButton()}
 			<Modal 
 				onReset={() => {setCheckerboard(initCheckerboard);}}
-				onVisible={() => {setVisible(false); setPlay(PLAY_1);}}
-				isVisible={isVisible}
+				onVisible={() => {setModalVisible(false); setPlay(PLAY_1);}}
+				isVisible={isModalVisible}
+				message={modalMessage}
+			/>
+			<Message
+				isVisible={isMessageVisible}
 				message={message}
-			></Modal>
+			/>
 		</div>
 	);
 }
