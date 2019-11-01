@@ -60,11 +60,17 @@ function Layout() {
 			ws.on('nowPlay', (nowPlay) => {
 				setNowPlay(nowPlay);
 			});
-			ws.on('updateChess',() => {
-				// 更新棋盤
+			ws.on('notNowPlay', (message) => {
+				// 不是現在的玩家
+				console.log(message);
 			});
-			ws.on('errorAdd', () => {
-				// 不能下的地方
+			ws.on('multipleAdd', (message) => {
+				// 不是現在的玩家
+				console.log(message);
+			});
+			ws.on('updateChess',(checkerboard) => {
+				// 更新棋盤
+				setCheckerboard(checkerboard);
 			});
 			ws.on('gameResult', () => {
 				// 判斷勝利
@@ -79,7 +85,7 @@ function Layout() {
 	function _handelClick(rowIndex, columnIndex) {
 		if (!ws) return;
 		// 下棋
-		ws.emit('addChess', { rowIndex, columnIndex, });
+		ws.emit('addChess', { play, rowIndex, columnIndex, });
 		// if (checkerboard[rowIndex][columnIndex]) return;
 		// const newCheckerboard = checkerboard.map(row => row.map(item => item));
 
