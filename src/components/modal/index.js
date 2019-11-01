@@ -27,7 +27,7 @@ function Modal({ isVisible ,message, onReset, onVisible }) {
 				<p>
 					{message}
 				</p>
-				<Button onClick={_handleClick}>Reset</Button>
+				<Button onClick={_handleClick}> 確 定 </Button>
 			</div>
 		</div>
 	);
