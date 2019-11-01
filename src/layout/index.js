@@ -31,7 +31,6 @@ function Layout() {
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [message, setMessage] = useState('');
 	const [isMessageVisible, setMessageVisible] = useState(false);
-	
 	const [playStatus, setPlayStatus] = useState(NONE);
 	const [ws,setWs] = useState(null);
 
@@ -73,25 +72,37 @@ function Layout() {
 			ws.on('gameResult', (result) => {
 				_handleShowModal(result);
 			});
+			ws.on('init', (checkerboard) => {
+				setCheckerboard(checkerboard);
+			});
 			ws.on('leaveGame', () => {
+				setModalVisible(true);
+				setModalMessage('對方已離開');
 				setPlayStatus(NONE);
 			});
 		}
 	},[ws]);
 
-	function _handelClick(rowIndex, columnIndex) {
+	function _handlePlayChess(rowIndex, columnIndex) {
 		if (!ws) return;
 		// 下棋
 		ws.emit('addChess', { play, rowIndex, columnIndex, });
 	}
+	function _handleClickBack() {
+		if (!ws) return;
+
+		ws.emit('init');
+		setPlayStatus(NONE);
+		setModalVisible(false);
+	}
 
 	function _handleShowModal(result) {
 		if (result === 'flat') {
-			setModalMessage(true);
-			setMessage('平手');
+			setModalVisible(true);
+			setModalMessage('平手');
 		} else {
-			setModalMessage(true);
-			setMessage(`${result} 獲勝`);
+			setModalVisible(true);
+			setModalMessage(`${result} 獲勝`);
 		}
 	}
 	function _handleShowMessage(message) {
@@ -145,12 +156,11 @@ function Layout() {
 			{_renderTitle()}
 			<Checkerboard
 				checkerboard={checkerboard}
-				onClick={_handelClick}
+				onClick={_handlePlayChess}
 			/>
 			{_renderButton()}
 			<Modal 
-				onReset={() => {setCheckerboard(initCheckerboard);}}
-				onVisible={() => {setModalVisible(false); setPlay(PLAY_1);}}
+				onClick={_handleClickBack}
 				isVisible={isModalVisible}
 				message={modalMessage}
 			/>
