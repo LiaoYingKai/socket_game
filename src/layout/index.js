@@ -46,37 +46,30 @@ function Layout() {
 	useEffect(() => {
 		if (ws) {
 			ws.on('startGame', () => {
-				// 開始遊戲
 				setPlayStatus(PLAYING);
 			});
-			// 玩家角色
 			ws.on('PLAY_1', () => {
 				setPlay(PLAY_1);
 			});
 			ws.on('PLAY_2', () => {
 				setPlay(PLAY_2);
 			});
-			// 現在是哪一個玩家下棋
 			ws.on('nowPlay', (nowPlay) => {
 				setNowPlay(nowPlay);
 			});
 			ws.on('notNowPlay', (message) => {
-				// 不是現在的玩家
 				console.log(message);
 			});
 			ws.on('multipleAdd', (message) => {
-				// 不是現在的玩家
 				console.log(message);
 			});
 			ws.on('updateChess',(checkerboard) => {
-				// 更新棋盤
 				setCheckerboard(checkerboard);
 			});
-			ws.on('gameResult', () => {
-				// 判斷勝利
+			ws.on('gameResult', (result) => {
+				_handleShowMessage(result);
 			});
 			ws.on('leaveGame', () => {
-				// 離開遊戲
 				setPlayStatus(NONE);
 			});
 		}
@@ -86,69 +79,17 @@ function Layout() {
 		if (!ws) return;
 		// 下棋
 		ws.emit('addChess', { play, rowIndex, columnIndex, });
-		// if (checkerboard[rowIndex][columnIndex]) return;
-		// const newCheckerboard = checkerboard.map(row => row.map(item => item));
-
-		// newCheckerboard[rowIndex][columnIndex] = play;
-		// setCheckerboard(newCheckerboard);
-		// _handleChangePlay();
 	}
 
-	// function _handleChangePlay() {
-	// 	if (play === PLAY_1) {
-	// 		setPlay(PLAY_2);
-	// 	} else {
-	// 		setPlay(PLAY_1);
-	// 	}
-	// }
-
-	function _handleJudgeVictory(play) {
-		let isWin = false;
-
-		// console.table(checkerboard)
-		checkerboard.forEach((row , index) => {
-			// row win
-			if (row.every(item => item === play)) {
-				isWin = true;
-			}
-			// column win
-			if (checkerboard[0][index] === play && checkerboard[0][index] === checkerboard[1][index] && checkerboard[1][index] === checkerboard[2][index]) {
-				isWin = true;
-			}
-		});
-		// oblique win
-		if (checkerboard[1][1] === play) {
-			if (checkerboard[1][1] === checkerboard[0][2] && checkerboard[1][1] === checkerboard[2][0]) {
-				isWin = true;
-			}
-			if (checkerboard[1][1] === checkerboard[0][0] && checkerboard[1][1] === checkerboard[2][2]) {
-				isWin = true;
-			}
-		}
-
-		return isWin;
-	}
-
-	function isFlat() {
-		return checkerboard.every(row => (
-			row.every(column => column)
-		));
-	}
-
-	useEffect(() => {
-		if (isFlat()) {
+	function _handleShowMessage(result) {
+		if (result === 'flat') {
 			setVisible(true);
 			setMessage('平手');
-		}
-		if (_handleJudgeVictory(PLAY_1)) {
+		} else {
 			setVisible(true);
-			setMessage('o 獲勝');
+			setMessage(`${result} 獲勝`);
 		}
-		if (_handleJudgeVictory(PLAY_2)) {
-			setVisible(true);
-			setMessage('x 獲勝');
-		}
-	});
+	}
 
 	function _renderTitle() {
 		switch (playStatus) {
