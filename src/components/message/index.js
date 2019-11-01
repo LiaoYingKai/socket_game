@@ -10,8 +10,6 @@ const propTypes = {
 		PropTypes.node,
 		PropTypes.string,
 	]),
-	onReset: PropTypes.func,
-	onVisible: PropTypes.func,
 	isVisible: PropTypes.bool,
 };
 

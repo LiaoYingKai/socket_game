@@ -11,28 +11,29 @@ const propTypes = {
 		PropTypes.node,
 		PropTypes.string,
 	]),
-	onReset: PropTypes.func,
-	onVisible: PropTypes.func,
+	onClick: PropTypes.func,
 	isVisible: PropTypes.bool,
 };
 
-function Modal({ isVisible ,message, onReset, onVisible }) {
-	function _handleClick() {
-		onReset();
-		onVisible();
-	}
+const defaultProps = {
+	onClick: () => {},
+};
+
+function Modal({ isVisible ,message, onClick, }) {
+
 	return (
 		<div className={cx(PREFIX_CLASS, { [`${PREFIX_CLASS}__open`]: isVisible })}>
 			<div className={`${PREFIX_CLASS}__content`}>
 				<p>
 					{message}
 				</p>
-				<Button onClick={_handleClick}> 確 定 </Button>
+				<Button onClick={onClick}> 確 定 </Button>
 			</div>
 		</div>
 	);
 }
 
 Modal.propTypes = propTypes;
+Modal.defaultProps = defaultProps;
 
 export default Modal;
