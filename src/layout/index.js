@@ -36,7 +36,7 @@ function Layout() {
 
 	function _handleConnectWebSocket() {
 		//等待連線
-		setWs(webSocket('http://localhost:8888'));
+		setWs(webSocket('https://kai-game-server.herokuapp.com/'));
 		setPlayStatus(LOADING);
 	}
 
