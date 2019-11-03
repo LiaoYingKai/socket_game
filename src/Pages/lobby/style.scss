@@ -1,0 +1,18 @@
+
+@import '../../scss/mixin.scss';
+.lobby {
+	@include FullPageCenter();
+	flex-direction: column;
+	&__title {
+		margin-bottom: 20px;
+		font-size: 36px;
+		text-align: center;
+	}
+	&__content {
+		display: grid;
+		grid-template-columns: repeat(2, 200px);
+		grid-column-gap: 40px;
+		align-items: center;
+		justify-content: center;
+	}
+}	
