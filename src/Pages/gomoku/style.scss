@@ -1,0 +1,6 @@
+
+@import '../../scss/mixin.scss';
+.gomoku {
+	@include FullPageCenter();
+	flex-direction: column;
+}

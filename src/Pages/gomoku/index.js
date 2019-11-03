@@ -1,12 +1,13 @@
 import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
+import './style.scss';
 
 const propTypes = {};
 
 function Gomoku() {
 	return (
-		<div>
-			Hello World
+		<div className="gomoku">
+			Gomoku
 		</div>
 	);
 }
