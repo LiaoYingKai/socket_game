@@ -5,25 +5,4 @@ body, html {
 .layout {
 	width: 100vw;
 	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	.title {
-		margin-bottom: 20px;
-		font-size: 36px;
-		&--loading {
-			display: flex;
-			align-items: center;
-		}
-		&--o {
-			color: blue;
-		}
-		&--x {
-			color: red;
-		}
-	}
-	.start-game-button {
-		margin-top: 20px;
-	}
 }

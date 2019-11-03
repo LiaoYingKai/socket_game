@@ -6,7 +6,7 @@ import './style.scss';
 function Layout() {
 	return (
 		<Router>
-			<div className="content">
+			<div className="layout">
 				<LayoutRouter/>
 			</div>
 		</Router>
