@@ -154,7 +154,7 @@ function TicTacToc() {
 	}
 
 	return (
-		<div className="layout">
+		<div className="tic-tac-toc">
 			{_renderTitle()}
 			<Checkerboard
 				checkerboard={checkerboard}
