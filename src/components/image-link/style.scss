@@ -1,0 +1,9 @@
+.image-link {
+	cursor: pointer;
+	&:hover {
+		box-shadow:3px 3px 12px gray;
+	}
+	img {
+		width: 100%;
+	}
+}
