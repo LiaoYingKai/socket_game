@@ -22,8 +22,7 @@ const {
 const initCheckerboard = [['','',''],['','',''],['','',''],];
 
 const propTypes = {};
-// const socketUrl = 'https://kai-game-server.herokuapp.com/';
-const socketUrl = 'localhost:8888/tic-tac-toc';
+const socketUrl = 'https://kai-game-server.herokuapp.com/tic-tac-toc';
 
 function TicTacToc() {
 	const [checkerboard, setCheckerboard] = useState(initCheckerboard);
