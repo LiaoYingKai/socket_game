@@ -2,21 +2,13 @@
 .tic-tac-toc {
 	@include FullPageCenter();
 	flex-direction: column;
-	// .title {
-	// 	margin-bottom: 20px;
-	// 	font-size: 36px;
-	// 	&--loading {
-	// 		display: flex;
-	// 		align-items: center;
-	// 	}
 	&--o {
 		color: blue;
 	}
 	&--x {
 		color: red;
 	}
-	// }
-	.start-game-button {
+	button {
 		margin-top: 20px;
 	}
 }

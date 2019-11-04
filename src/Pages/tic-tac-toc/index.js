@@ -44,13 +44,11 @@ function TicTacToc() {
 	const [ws,setWs] = useState(null);
 
 	function _handleConnectWebSocket() {
-		//等待連線
 		setWs(webSocket(socketUrl));
 		setPlayStatus(LOADING);
 	}
 
 	function _handleDisconnectWebSocket() {
-		//取消等待
 		ws.close();
 		setPlayStatus(NONE);
 	}
@@ -136,13 +134,11 @@ function TicTacToc() {
 	function _renderButton() {
 		if (playStatus === NONE) {
 			return <Button 
-				className="start-game-button"
 				onClick={_handleConnectWebSocket}
 			> 開始遊戲 </Button>;
 		} 
 		if (playStatus === LOADING) {
 			return <Button 
-				className="start-game-button"
 				onClick={_handleDisconnectWebSocket}
 			> 取消遊戲 </Button>;
 		}
