@@ -4,8 +4,8 @@ import Modal from '../../components/modal';
 import { PlayEnums, PlayStatus } from '../../enums';
 import webSocket from 'socket.io-client';
 import Button from '../../components/button';
-import Loading from '../../components/loading';
 import Message from '../../components/message';
+import PlayTitle from '../../components/play-title';
 import './style.scss';
 
 const {
@@ -112,26 +112,15 @@ function TicTacToc() {
 		}, 1000);
 	}
 
-	function _renderTitle() {
-		switch (playStatus) {
-			case NONE: {
-				return <div className="title"> 請按開始遊戲 </div>;
-			}
-			case LOADING: {
-				return <div className="title title--loading"> 等待另一位玩家 <Loading/> </div>;
-			}
-			case PLAYING: {
-				return (
-					<div className="title">
-						你是 <span className={`title--${play}`}>{play}</span>
-						現在是 <span className={`title--${nowPlay}`}>{nowPlay}</span> 下
-					</div>
-				);
-			}
-			default: {
-				return null;
-			}
-		}
+	function _renderPlay() {
+		return (
+			<span className={`tic-tac-toc--${play}`}>{play} </span>
+		);
+	}
+	function _renderNowPlay() {
+		return (
+			<span className={`tic-tac-toc--${nowPlay}`}>{nowPlay}</span>
+		);
 	}
 
 	function _renderButton() {
@@ -151,7 +140,11 @@ function TicTacToc() {
 
 	return (
 		<div className="tic-tac-toc">
-			{_renderTitle()}
+			<PlayTitle
+				status={playStatus}
+				play={_renderPlay()}
+				nowPlay={_renderNowPlay()}
+			/>
 			<Checkerboard
 				checkerboard={checkerboard}
 				onClick={_handlePlayChess}
