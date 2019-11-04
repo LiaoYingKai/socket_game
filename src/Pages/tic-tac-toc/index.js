@@ -6,12 +6,22 @@ import webSocket from 'socket.io-client';
 import Button from '../../components/button';
 import Message from '../../components/message';
 import PlayTitle from '../../components/play-title';
+import Lattice from '../../components/lattice';
 import './style.scss';
 
 const {
 	PLAY_1,
 	PLAY_2,
 } = PlayEnums;
+
+const {
+	LatticeStatusEnums,
+} = Lattice.TicTacToc;
+
+const {
+	CIRCLE,
+	FORK,
+} = LatticeStatusEnums;
 
 const {
 	NONE,
@@ -148,6 +158,10 @@ function TicTacToc() {
 			<Checkerboard
 				checkerboard={checkerboard}
 				onClick={_handlePlayChess}
+				Lattice={Lattice.TicTacToc}
+				play1={CIRCLE}
+				play2={FORK}
+				type={Checkerboard.TypeEnums.TIC_TAC_TOC}
 			/>
 			{_renderButton()}
 			<Modal 
