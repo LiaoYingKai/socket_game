@@ -1,14 +1,20 @@
 .checkerboard {
-	display: grid;
-	grid-template-columns: repeat(3, 100px);
-	.lattice {
-		border-top: none;
-		border-left: none;
-		&:nth-child(3n) {
-			border-right: none;
+	&__tic-tac-toc {
+		display: grid;
+		grid-template-columns: repeat(3, 100px);
+		.lattice-tic-tac-toc {
+			border-top: none;
+			border-left: none;
+			&:nth-child(3n) {
+				border-right: none;
+			}
+			&:nth-child(7), &:nth-child(8), &:nth-child(9) {
+				border-bottom: none;
+			} 
 		}
-		&:nth-child(7), &:nth-child(8), &:nth-child(9) {
-			border-bottom: none;
-		} 
+	}
+	&__gomoku {
+		display: grid;
+		grid-template-columns: repeat(20, 30px);
 	}
 }

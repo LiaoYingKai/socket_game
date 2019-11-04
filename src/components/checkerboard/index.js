@@ -1,6 +1,5 @@
-import React, { useState, } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Lattice from '../lattice';
 import { PlayEnums } from '../../enums';
 import './style.scss';
 
@@ -9,36 +8,44 @@ const {
 	PLAY_2,
 } = PlayEnums;
 
-const {
-	LatticeStatusEnums,
-} = Lattice.TicTacToc;
+const TypeEnums = {
+	TIC_TAC_TOC: 'tic-tac-toc',
+	GOMOKU: 'gomoku',
+};
 
 const {
-	CIRCLE,
-	FORK,
-} = LatticeStatusEnums;
+	TIC_TAC_TOC,
+	GOMOKU,
+} = TypeEnums;
 
 const propTypes = {
 	checkerboard: PropTypes.array,
-	onClick: PropTypes.func
+	onClick: PropTypes.func,
+	Lattice: PropTypes.any,
+	play1: PropTypes.string,
+	play2: PropTypes.string,
+	type: PropTypes.oneOfType([
+		TIC_TAC_TOC,
+		GOMOKU,
+	])
 };
 
-function checkerboard({ checkerboard, onClick }) {
+function checkerboard({ Lattice, checkerboard, onClick, play1, play2, type }) {
 	return (
-		<div className="checkerboard">
+		<div className={`checkerboard__${type}`}>
 			{
 				checkerboard.map((row, rowIndex) => (
 					row.map((item, columnIndex) => {
 						let status;
 
 						if (item === PLAY_1) {
-							status = CIRCLE;
+							status = play1;
 						}
 						if (item === PLAY_2) {
-							status = FORK;
+							status = play2;
 						}
 						return (
-							<Lattice.TicTacToc
+							<Lattice
 								key={`${rowIndex}__${columnIndex}`}
 								onClick={() => onClick(rowIndex, columnIndex)}
 								status={status}
@@ -52,5 +59,6 @@ function checkerboard({ checkerboard, onClick }) {
 }
 
 checkerboard.propTypes = propTypes;
+checkerboard.TypeEnums = TypeEnums;
 
 export default checkerboard;
