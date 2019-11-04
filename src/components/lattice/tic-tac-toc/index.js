@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './style.scss';
 
-const PREFIX_CLASS = "lattice";
+const PREFIX_CLASS = "lattice-tic-tac-toc";
 
 const LatticeStatusEnums = {
 	NONE: 'none',
