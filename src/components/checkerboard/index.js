@@ -11,7 +11,7 @@ const {
 
 const {
 	LatticeStatusEnums,
-} = Lattice;
+} = Lattice.TicTacToc;
 
 const {
 	CIRCLE,
@@ -38,7 +38,7 @@ function checkerboard({ checkerboard, onClick }) {
 							status = FORK;
 						}
 						return (
-							<Lattice
+							<Lattice.TicTacToc
 								key={`${rowIndex}__${columnIndex}`}
 								onClick={() => onClick(rowIndex, columnIndex)}
 								status={status}

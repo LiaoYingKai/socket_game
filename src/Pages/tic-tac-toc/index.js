@@ -20,8 +20,6 @@ const {
 } = PlayStatus;
 
 const initCheckerboard = [['','',''],['','',''],['','',''],];
-
-const propTypes = {};
 const socketUrl = 'https://kai-game-server.herokuapp.com/tic-tac-toc';
 
 function TicTacToc() {
@@ -149,7 +147,6 @@ function TicTacToc() {
 				onClick={_handleDisconnectWebSocket}
 			> 取消遊戲 </Button>;
 		}
-
 	}
 
 	return (
@@ -172,7 +169,5 @@ function TicTacToc() {
 		</div>
 	);
 }
-
-TicTacToc.propTypes = propTypes;
 
 export default TicTacToc;
