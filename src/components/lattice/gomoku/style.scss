@@ -1,23 +1,23 @@
 @import '../../../scss//mixin.scss';
 .lattice-gomoku {
 	background-color: #cd9b4d;
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 	position: relative;
 	cursor: pointer;
 	&::after, &::before {
 		content: '';
 		display: inline-block;
 		background-color: #4b2f25;
-		@include AbsoluteCenter(50px, 3px);
+		@include AbsoluteCenter(30px, 3px);
 
 	}
 	&::after {
 		transform: rotate(90deg);
-		width: 51px;
+		width: 31px;
 	}
 	&__block, &__white {
-		@include AbsoluteCenter(40px, 40px);
+		@include AbsoluteCenter(24px, 24px);
 		border-radius: 50%;
 		z-index: 2;
 	}
