@@ -2,4 +2,7 @@
 .gomoku {
 	@include FullPageCenter();
 	flex-direction: column;
+	button {
+		margin-top: 15px;
+	}
 }
