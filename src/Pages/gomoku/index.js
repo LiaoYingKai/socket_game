@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PlayTitle from '../../components/play-title';
 import { PlayEnums, PlayStatus } from '../../enums';
@@ -15,7 +15,10 @@ const {
 	LOADING,
 	PLAYING,
 } = PlayStatus;
-
+const {
+	PLAY_1,
+	PLAY_2,
+} = PlayEnums;
 const {
 	GomokuStatusEnums,
 } = Lattice.Gomoku;
@@ -43,6 +46,9 @@ function createCheckerboard() {
 }
 function Gomoku() {
 	const [playStatus, setPlayStatus] = useState(NONE);
+	const [play, setPlay] = useState('');
+	const [nowPlay, setNowPlay] = useState('');
+
 	const [modalMessage, setModalMessage] = useState('');
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [message, setMessage] = useState('');
@@ -69,6 +75,23 @@ function Gomoku() {
 		// setModalVisible(false);
 	}
 
+	useEffect(() => {
+		if (ws) {
+			ws.on('startGame', () => {
+				setPlayStatus(PLAYING);
+			});
+			ws.on('PLAY_1', () => {
+				setPlay(PLAY_1);
+			});
+			ws.on('PLAY_2', () => {
+				setPlay(PLAY_2);
+			});
+			ws.on('nowPlay', (nowPlay) => {
+				setNowPlay(nowPlay);
+			});
+		}
+	},[ws]);
+
 	function _renderButton() {
 		if (playStatus === NONE) {
 			return <Button 
@@ -81,11 +104,12 @@ function Gomoku() {
 			> 取消遊戲 </Button>;
 		}
 	}
-
 	return (
 		<div className="gomoku">
 			<PlayTitle
 				status={playStatus}
+				play={play === PLAY_1 ? '黑棋': '白棋'}
+				nowPlay={nowPlay === PLAY_1 ? '黑棋': '白棋'}
 			/>
 			<Checkerboard
 				checkerboard={initCheckerboard}
