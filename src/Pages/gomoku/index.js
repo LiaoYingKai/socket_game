@@ -48,7 +48,7 @@ function Gomoku() {
 	const [playStatus, setPlayStatus] = useState(NONE);
 	const [play, setPlay] = useState('');
 	const [nowPlay, setNowPlay] = useState('');
-
+	const [checkerboard, setCheckerboard] = useState(initCheckerboard);
 	const [modalMessage, setModalMessage] = useState('');
 	const [isModalVisible, setModalVisible] = useState(false);
 	const [message, setMessage] = useState('');
@@ -65,14 +65,16 @@ function Gomoku() {
 		setPlayStatus(NONE);
 	}
 	function _handlePlayChess(rowIndex, columnIndex) {
-		console.log(rowIndex, columnIndex);
+		if (!ws) return;
+		// 下棋
+		ws.emit('addChess', { play, rowIndex, columnIndex, });
 	}
 	function _handleClickBack() {
-		// if (!ws) return;
+		if (!ws) return;
 
-		// ws.emit('init');
-		// setPlayStatus(NONE);
-		// setModalVisible(false);
+		ws.emit('init');
+		setPlayStatus(NONE);
+		setModalVisible(false);
 	}
 
 	useEffect(() => {
@@ -89,6 +91,26 @@ function Gomoku() {
 			ws.on('nowPlay', (nowPlay) => {
 				setNowPlay(nowPlay);
 			});
+			ws.on('updateChess',(checkerboard) => {
+				setCheckerboard(checkerboard);
+			});
+			ws.on('notNowPlay', (message) => {
+				_handleShowMessage(message);
+			});
+			ws.on('multipleAdd', (message) => {
+				_handleShowMessage(message);
+			});
+			ws.on('gameResult', (result) => {
+				_handleShowModal(result);
+			});
+			ws.on('init', (checkerboard) => {
+				setCheckerboard(checkerboard);
+			});
+			ws.on('leaveGame', () => {
+				setModalVisible(true);
+				setModalMessage('對方已離開');
+				setPlayStatus(NONE);
+			});
 		}
 	},[ws]);
 
@@ -104,6 +126,22 @@ function Gomoku() {
 			> 取消遊戲 </Button>;
 		}
 	}
+	function _handleShowModal(result) {
+		if (result === 'flat') {
+			setModalVisible(true);
+			setModalMessage('平手');
+		} else {
+			setModalVisible(true);
+			setModalMessage(`${result} 獲勝`);
+		}
+	}
+	function _handleShowMessage(message) {
+		setMessageVisible(true);
+		setMessage(message);
+		setTimeout(() => {
+			setMessageVisible(false);
+		}, 1000);
+	}
 	return (
 		<div className="gomoku">
 			<PlayTitle
@@ -112,7 +150,7 @@ function Gomoku() {
 				nowPlay={nowPlay === PLAY_1 ? '黑棋': '白棋'}
 			/>
 			<Checkerboard
-				checkerboard={initCheckerboard}
+				checkerboard={checkerboard}
 				onClick={_handlePlayChess}
 				Lattice={Lattice.Gomoku}
 				play1={BLOCK}
