@@ -30,8 +30,7 @@ const {
 
 const propTypes = {};
 const initCheckerboard = createCheckerboard();
-// const socketUrl = 'https://kai-game-server.herokuapp.com/tic-tac-toc';
-const socketUrl = 'http://localhost:8888/gomoku';
+const socketUrl = 'https://kai-game-server.herokuapp.com/gomoku';
 
 function createCheckerboard() {
 	let checkerboard = [];
