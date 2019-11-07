@@ -131,7 +131,7 @@ function Gomoku() {
 			setModalMessage('平手');
 		} else {
 			setModalVisible(true);
-			setModalMessage(`${result} 獲勝`);
+			setModalMessage(`${_handleConventPlay(result)} 獲勝`);
 		}
 	}
 	function _handleShowMessage(message) {
@@ -141,12 +141,15 @@ function Gomoku() {
 			setMessageVisible(false);
 		}, 1000);
 	}
+	function _handleConventPlay(play) {
+		return play === PLAY_1 ? '黑棋': '白棋';
+	}
 	return (
 		<div className="gomoku">
 			<PlayTitle
 				status={playStatus}
-				play={play === PLAY_1 ? '黑棋': '白棋'}
-				nowPlay={nowPlay === PLAY_1 ? '黑棋': '白棋'}
+				play={_handleConventPlay(play)}
+				nowPlay={_handleConventPlay(nowPlay)}
 			/>
 			<Checkerboard
 				checkerboard={checkerboard}
