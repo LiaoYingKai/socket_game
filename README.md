@@ -7,7 +7,7 @@ branch d7bbb19
 branch 6528520
 配合 heroku 可以連線與別人對弈
 
-## (五子棋)[https://liaoyingkai.github.io/socket_game/build/#/gomoku]
+## [五子棋](https://liaoyingkai.github.io/socket_game/build/#/gomoku)
 ### 連線版
-branch 92db207
+branch fe7a9dd
 配合 heroku 可以連線與別人對弈
