@@ -5,7 +5,8 @@ module.exports = {
 	entry: path.join(__dirname, 'src', 'index.js'),
 	output: {
 		path: path.join(__dirname, 'build'),
-		filename: 'index.bundle.js'
+		filename: 'index.bundle.js',
+		// publicPath: 'build/'
 	},
 	mode: process.env.NODE_ENV || 'development',
 	module: {
@@ -23,6 +24,16 @@ module.exports = {
 					'sass-loader' // compiles Sass to CSS, using Node Sass by default
 				]
 			},
+			{
+				test: /\.(jpe?g|png|gif|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: { limit: 40000 }
+					},
+					'image-webpack-loader'
+				]
+			}
 		] 
 	},
 	resolve: {
