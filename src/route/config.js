@@ -3,17 +3,20 @@ import loadComponent from './loadable';
 const Lobby = loadComponent({ loader: () => import('../Pages/lobby') });
 const TicTacToc = loadComponent({ loader: () => import('../Pages/tic-tac-toc') });
 const Gomoku = loadComponent({ loader: () => import('../Pages/gomoku') });
+const PokerBoast = loadComponent({ loader: () => import('../Pages/poker-boast') });
 
 const PathEnums = {
 	LOBBY: '/',
 	TIC_TAC_TOC: '/tic-tac-toc',
 	GOMOKU: '/gomoku',
+	POKER_BOAST: '/poker-boast',
 };
 
 const {
 	LOBBY,
 	TIC_TAC_TOC,
-	GOMOKU
+	GOMOKU,
+	POKER_BOAST
 } = PathEnums;
 
 export const config = [
@@ -30,6 +33,11 @@ export const config = [
 	{
 		path: GOMOKU,
 		component: Gomoku,
+		exact: true,
+	},
+	{
+		path: POKER_BOAST,
+		component: PokerBoast,
 		exact: true,
 	},
 ];

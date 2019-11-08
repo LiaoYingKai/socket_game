@@ -6,7 +6,8 @@ import './style.scss';
 
 const {
 	TIC_TAC_TOC,
-	GOMOKU
+	GOMOKU,
+	POKER_BOAST
 } = PathEnums;
 
 const propTypes = {
@@ -14,17 +15,26 @@ const propTypes = {
 };
 
 function Lobby({ history }) {
+
+	function redirectPage(url) {
+		history.push(url);
+	}
+
 	return (
 		<div className="lobby">
 			<div className="lobby__title"> 請選擇遊戲 </div>
 			<div className="lobby__content">
 				<ImageLink
 					imageSrc={'https://lh3.googleusercontent.com/AswZr3s2goU6BxNLCcPkV9AANJEIGh7we_8tv5LS7d6vCiyTGeS67nVfVSbZJEzC4mw'}
-					onClick={() => {history.push(TIC_TAC_TOC);}}
+					onClick={() => {redirectPage(TIC_TAC_TOC);}}
 				/>
 				<ImageLink
 					imageSrc={'http://587.renju.org.tw/p/4.jpg'}
-					onClick={() => {history.push(GOMOKU);}}
+					onClick={() => {redirectPage(GOMOKU);}}
+				/>
+				<ImageLink
+					imageSrc={'https://photo.macdown.com/180830/EPS-180830_289/KLpWfrgizk_small.jpg'}
+					onClick={() => {redirectPage(POKER_BOAST);}}
 				/>
 			</div>
 		</div>
