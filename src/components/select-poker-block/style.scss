@@ -29,5 +29,11 @@
 			border: 3px solid red;
 		}
 	}
-	
+	&__buttons {
+		.button {
+			&:first-child {
+				margin-right: 20px;
+			}
+		}
+	}
 }

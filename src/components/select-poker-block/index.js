@@ -99,6 +99,18 @@ function SelectPokerBlock() {
 		}
 		spadesArray[index].isSelect = !isSelect;
 	}
+
+	function _handleClickOk() {
+		console.log(totalPoint);
+	}
+
+	function _handleClickCancel() {
+		Object.values(spadesArray).forEach(poker => {
+			poker.isSelect = false;
+		});
+		setTotalPoint(0);
+	}
+
 	return (
 		<div className={PREFIX_CLASS}>
 			<div className={`${PREFIX_CLASS}__total-point`}>
@@ -120,9 +132,14 @@ function SelectPokerBlock() {
 					})
 				}
 			</div>
-			<div>
-				<Button> 取消 </Button>
-				<Button> 確認 </Button>
+			<div className={`${PREFIX_CLASS}__buttons`}>
+				<Button 
+					type={Button.TypeEnums.HOLLOW}
+					onClick={_handleClickCancel}
+				> 取消 </Button>
+				<Button
+					onClick={_handleClickOk}
+				> 確認 </Button>
 			</div>
 		</div>
 	);
