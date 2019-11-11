@@ -4,7 +4,14 @@
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
-
+	justify-content: center;
+	flex-direction: column;
+	&__total-point {
+		color: #018478;
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
+	
 	&__container {
 		width: 100%;
 		display: grid;
@@ -13,9 +20,14 @@
 		justify-items: center;
 		img {
 			cursor: pointer;
+			border: 3px solid transparent;
 			&:hover {
 				box-shadow:3px 3px 12px gray;
 			}
 		}
+		.select-poker-block__poker--isSelect {
+			border: 3px solid red;
+		}
 	}
+	
 }

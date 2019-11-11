@@ -1,5 +1,7 @@
 import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
+import Button from '../button';
+import cx from 'classnames';
 import './style.scss';
 import spades1 from '../../images/spades1.jpg';
 import spades2 from '../../images/spades2.jpg';
@@ -17,34 +19,110 @@ import spades13 from '../../images/spades13.jpg';
 
 const PREFIX_CLASS = 'select-poker-block';
 const propTypes = {};
+
 const spadesArray = [
-	spades1,
-	spades2,
-	spades3,
-	spades4,
-	spades5,
-	spades6,
-	spades7,
-	spades8,
-	spades9,
-	spades10,
-	spades11,
-	spades12,
-	spades13,
+	{
+		image: spades1,
+		isSelect: false,
+		point:1 ,
+	},
+	{
+		image: spades2,
+		isSelect: false,
+		point:2 ,
+	},
+	{
+		image: spades3,
+		isSelect: false,
+		point:3 ,
+	},
+	{
+		image: spades4,
+		isSelect: false,
+		point:4 ,
+	},
+	{
+		image: spades5,
+		isSelect: false,
+		point:5 ,
+	},
+	{
+		image: spades6,
+		isSelect: false,
+		point:6 ,
+	},
+	{
+		image: spades7,
+		isSelect: false,
+		point:7 ,
+	},
+	{
+		image: spades8,
+		isSelect: false,
+		point:8 ,
+	},
+	{
+		image: spades9,
+		isSelect: false,
+		point:9 ,
+	},
+	{
+		image: spades10,
+		isSelect: false,
+		point:10 ,
+	},
+	{
+		image: spades11,
+		isSelect: false,
+		point:11 ,
+	},
+	{
+		image: spades12,
+		isSelect: false,
+		point:12 ,
+	},
+	{
+		image: spades13,
+		isSelect: false,
+		point:13 ,
+	},
 ];
 
 function SelectPokerBlock() {
+	const [totalPoint, setTotalPoint] = useState(0);
+
+	function _handleClickPoker(index, point, isSelect) {
+		if (isSelect) {
+			setTotalPoint(totalPoint - point);
+		} else {
+			setTotalPoint(totalPoint + point);
+		}
+		spadesArray[index].isSelect = !isSelect;
+	}
 	return (
 		<div className={PREFIX_CLASS}>
+			<div className={`${PREFIX_CLASS}__total-point`}>
+				目前點數：{totalPoint}
+			</div>
 			<div className={`${PREFIX_CLASS}__container`}>
 				{
-					spadesArray.map(poker => (
-						<img
-							src={poker}
-							key={poker}
-						/>
-					))
+					spadesArray.map((poker, index) => {
+						const { image, isSelect, point } = poker;
+
+						return (
+							<img
+								key={image} 
+								className={cx({ [`${PREFIX_CLASS}__poker--isSelect`]: isSelect })}
+								src={image}
+								onClick={() => _handleClickPoker(index, point, isSelect)}
+							/>
+						);
+					})
 				}
+			</div>
+			<div>
+				<Button> 取消 </Button>
+				<Button> 確認 </Button>
 			</div>
 		</div>
 	);
