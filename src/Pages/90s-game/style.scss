@@ -1,0 +1,13 @@
+.game-of-90s {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	background:
+		url('../../images/90s-game/background.png') no-repeat,
+		url('../../images/90s-game/background-road.png') no-repeat;
+	background-size: cover, cover;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
