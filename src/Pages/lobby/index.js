@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PathEnums } from '../../route/config';
 import ImageLink from '../../components/image-link';
-import Game from '../../images/finish.gif';
+import Game from '../../images/90s-game/entry.gif';
 import './style.scss';
 
 const {
