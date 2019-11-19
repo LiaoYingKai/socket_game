@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PathEnums } from '../../route/config';
 import ImageLink from '../../components/image-link';
+import Game from '../../images/finish.gif';
 import './style.scss';
 
 const {
 	TIC_TAC_TOC,
 	GOMOKU,
-	POKER_BOAST
+	POKER_BOAST,
+	GAME_OF_90S,
 } = PathEnums;
 
 const propTypes = {
@@ -35,6 +37,10 @@ function Lobby({ history }) {
 				<ImageLink
 					imageSrc={'https://photo.macdown.com/180830/EPS-180830_289/KLpWfrgizk_small.jpg'}
 					onClick={() => {redirectPage(POKER_BOAST);}}
+				/>
+				<ImageLink
+					imageSrc={Game}
+					onClick={() => {redirectPage(GAME_OF_90S);}}
 				/>
 			</div>
 		</div>
