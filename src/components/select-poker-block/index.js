@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import cx from 'classnames';
@@ -90,12 +90,14 @@ const spadesArray = [
 
 function SelectPokerBlock() {
 	const [totalPoint, setTotalPoint] = useState(0);
+	const [selectArray, setSelectArray] = useState([]);
 
 	function _handleClickPoker(index, point, isSelect) {
 		if (isSelect) {
 			setTotalPoint(totalPoint - point);
 		} else {
 			setTotalPoint(totalPoint + point);
+			setSelectArray([...selectArray, ...[spadesArray[index]]]);
 		}
 		spadesArray[index].isSelect = !isSelect;
 	}
@@ -110,6 +112,10 @@ function SelectPokerBlock() {
 		});
 		setTotalPoint(0);
 	}
+
+	useEffect(() => {
+		console.log(selectArray)
+	})
 
 	return (
 		<div className={PREFIX_CLASS}>
