@@ -6,10 +6,11 @@
 		url('../../images/90s-game/background.png') no-repeat,
 		url('../../images/90s-game/background-road.png') no-repeat;
 	background-size: cover, cover;
-	height: 100%;
-	width: 100%;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
+	align-items: flex-end;
+	padding: 30px 0;
+	box-sizing: border-box;
 	&__player {
 		height: 300px;
 		position: absolute;
