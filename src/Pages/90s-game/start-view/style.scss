@@ -1,0 +1,37 @@
+.start-view {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	z-index: 2;
+	background-color: rgba(0,0,0,0.25);
+	top: 0;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	&--visible {
+		display: flex;
+	}
+	h1 {
+		font-size: 72px;
+		color: #ffffff;
+		margin: 0;
+		span {
+			color: #fff6df
+		}
+	}
+	h3 {
+		font-size: 28px;
+		color: #fff;
+		margin: 0;
+		font-weight: 400;
+		margin-bottom: 30px;
+	}
+	&__button {
+		background-color: #b8cff4;
+		border: 3px solid #9cb8e3;
+		padding: 15px 30px;
+		color: #fff;
+		font-size: 24px;
+	}
+}
